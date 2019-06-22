@@ -1,0 +1,34 @@
+{
+  "name": "@spriteful/app-media",
+  "version": "1.0.0",
+  "description": "port of polymer app-media elements, used to interact with media devices",
+  "main": "app-media.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/spriteful/app-media.git"
+  },
+  "author": "Spriteful spritefuldev@gmail.com",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/spriteful/app-media/issues"
+  },
+  "homepage": "https://github.com/spriteful/app-media#readme",
+  "dependencies": {
+    "@polymer/iron-iconset-svg": "^3.0.1",
+    "@polymer/polymer": "^3.2.0",
+    "@spriteful/spriteful-element": "^1.0.4",
+    "@spriteful/utils": "^1.2.4",
+    "image-capture": "^0.4.0"
+  },
+  "devDependencies": {
+    "@polymer/iron-demo-helpers": "^3.1.0",
+    "@polymer/test-fixture": "^4.0.2",
+    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "chai": "^4.2.0",
+    "mocha": "^6.1.4",
+    "wct-mocha": "^1.0.1"
+  }
+}

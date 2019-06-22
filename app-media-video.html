@@ -1,0 +1,31 @@
+
+<style>
+
+  :host {
+  	--app-media-video-background: var(--app-background-color, black);
+    display: 				 flex;
+    align-items: 		 center;
+    justify-content: center;
+    flex-wrap: 			 nowrap;
+    height: 				 100%;
+    background: 		 var(--app-media-video-background);
+    overflow: 			 hidden;
+  }
+
+  video {
+    flex: 						0 0 auto;
+    transform-origin: center center;
+    position: 				relative;
+    will-change: 			transform;
+  }
+
+</style>
+
+
+<video id="videoElement"
+			 muted="[[muted]]" 
+			 autoplay="[[autoplay]]" 
+			 loop="[[loop]]" 
+			 webkit-playsinline 
+			 playsinline>
+</video>

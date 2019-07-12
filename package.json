@@ -1,6 +1,6 @@
 {
   "name": "@spriteful/app-media",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "port of polymer app-media elements, used to interact with media devices",
   "main": "app-media.js",
   "scripts": {

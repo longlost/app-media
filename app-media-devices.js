@@ -10,10 +10,10 @@
  * @polymer
  * @demo demo/index.html
  */
-import {SpritefulElement} from '@spriteful/spriteful-element/spriteful-element.js';
+import {AppElement} from '@longlost/app-element/app-element.js';
 
 
-class SpritefulAppMediaDevices extends SpritefulElement {
+class AppMediaDevices extends AppElement {
   static get is() { return 'app-media-devices'; }
 
 
@@ -154,4 +154,4 @@ class SpritefulAppMediaDevices extends SpritefulElement {
 
 }
 
-window.customElements.define(SpritefulAppMediaDevices.is, SpritefulAppMediaDevices);
+window.customElements.define(AppMediaDevices.is, AppMediaDevices);

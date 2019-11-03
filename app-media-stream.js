@@ -11,7 +11,7 @@
  * @polymer
  * @demo demo/index.html
  */
-import {SpritefulElement} from '@spriteful/spriteful-element/spriteful-element.js';
+import {AppElement} from '@longlost/app-element/app-element.js';
 
 
 const combine = (constraints, device) => {
@@ -33,7 +33,7 @@ const combine = (constraints, device) => {
 };
 
 
-class SpritefulAppMediaStream extends SpritefulElement {
+class AppMediaStream extends AppElement {
   static get is() { return 'app-media-stream'; }
 
 
@@ -179,4 +179,4 @@ class SpritefulAppMediaStream extends SpritefulElement {
 
 }
 
-window.customElements.define(SpritefulAppMediaStream.is, SpritefulAppMediaStream);
+window.customElements.define(AppMediaStream.is, AppMediaStream);

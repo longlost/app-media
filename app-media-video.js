@@ -11,10 +11,10 @@
  * @demo demo/index.html
  */
  import {
-  SpritefulElement, 
+  AppElement, 
   html
-}                 from '@spriteful/spriteful-element/spriteful-element.js';
-import {listen} 	from '@spriteful/utils/utils.js';
+}                 from '@longlost/app-element/app-element.js';
+import {listen} 	from '@longlost/utils/utils.js';
 import htmlString from './app-media-video.html';
 
 
@@ -37,7 +37,7 @@ const getScales = (contain, videoWidth, videoHeight, videoRect, selfRect) => {
 };
 
 
-class SpritefulAppMediaVideo extends SpritefulElement {
+class AppMediaVideo extends AppElement {
   static get is() { return 'app-media-video'; }
 
   static get template() {
@@ -296,4 +296,4 @@ class SpritefulAppMediaVideo extends SpritefulElement {
 
 }
 
-window.customElements.define(SpritefulAppMediaVideo.is, SpritefulAppMediaVideo);
+window.customElements.define(AppMediaVideo.is, AppMediaVideo);

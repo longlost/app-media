@@ -12,8 +12,8 @@
  * @polymer
  * @demo demo/index.html
  */
-import {SpritefulElement} from '@spriteful/spriteful-element/spriteful-element.js';
-import {schedule} 				from '@spriteful/utils/utils.js';
+import {AppElement} from '@longlost/app-element/app-element.js';
+import {schedule} 	from '@longlost/utils/utils.js';
 import 'image-capture/src/imagecapture.js'; // safari polyfill that tests first
 
 
@@ -70,7 +70,7 @@ rely on Polymer >=2.x observer semantics.
 */
 
 
-class SpritefulAppMediaImageCapture extends SpritefulElement {
+class AppMediaImageCapture extends AppElement {
   static get is() { return 'app-media-image-capture'; }
 
 
@@ -533,4 +533,4 @@ class SpritefulAppMediaImageCapture extends SpritefulElement {
 
 }
 
-window.customElements.define(SpritefulAppMediaImageCapture.is, SpritefulAppMediaImageCapture);
+window.customElements.define(AppMediaImageCapture.is, AppMediaImageCapture);

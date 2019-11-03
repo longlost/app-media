@@ -1,5 +1,5 @@
 {
-  "name": "@spriteful/app-media",
+  "name": "@longlost/app-media",
   "version": "1.0.1",
   "description": "port of polymer app-media elements, used to interact with media devices",
   "main": "app-media.js",
@@ -8,27 +8,27 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spriteful/app-media.git"
+    "url": "git+https://github.com/longlost/app-media.git"
   },
-  "author": "Spriteful spritefuldev@gmail.com",
+  "author": "Longlost Dev longlostdev@gmail.com",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/spriteful/app-media/issues"
+    "url": "https://github.com/longlost/app-media/issues"
   },
-  "homepage": "https://github.com/spriteful/app-media#readme",
+  "homepage": "https://github.com/longlost/app-media#readme",
   "dependencies": {
+    "@longlost/app-element": "^1.0.4",
+    "@longlost/utils": "^1.2.4",
     "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/polymer": "^3.3.0",
-    "@spriteful/spriteful-element": "^1.0.4",
-    "@spriteful/utils": "^1.2.4",
     "image-capture": "^0.4.0"
   },
   "devDependencies": {
     "@polymer/iron-demo-helpers": "^3.1.0",
     "@polymer/test-fixture": "^4.0.2",
-    "@webcomponents/webcomponentsjs": "^2.2.10",
+    "@webcomponents/webcomponentsjs": "^2.3.0",
     "chai": "^4.2.0",
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.2",
     "wct-mocha": "^1.0.1"
   }
 }

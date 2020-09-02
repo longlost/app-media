@@ -2,30 +2,30 @@
 <style>
 
   :host {
-  	--app-media-video-background: var(--app-background-color, black);
-    display: 				 flex;
-    align-items: 		 center;
+    display:         flex;
+    align-items:     center;
     justify-content: center;
-    flex-wrap: 			 nowrap;
-    height: 				 100%;
-    background: 		 var(--app-media-video-background);
-    overflow: 			 hidden;
+    flex-wrap:       nowrap;
+    height:          100%;
+    overflow:        hidden;
+    background:      var(--app-background-color, black);
   }
 
   video {
-    flex: 						0 0 auto;
+    flex:             0 0 auto;
     transform-origin: center center;
-    position: 				relative;
-    will-change: 			transform;
+    position:         relative;
+    will-change:      transform;
   }
 
 </style>
 
 
 <video id="videoElement"
-			 muted="[[muted]]" 
-			 autoplay="[[autoplay]]" 
-			 loop="[[loop]]" 
-			 webkit-playsinline 
-			 playsinline>
+       muted="[[muted]]" 
+       autoplay="[[autoplay]]" 
+       loop="[[loop]]" 
+       webkit-playsinline 
+       playsinline
+       on-loadedmetadata="__metadataLoadedHandler">
 </video>

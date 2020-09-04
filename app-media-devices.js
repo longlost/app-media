@@ -25,20 +25,6 @@ class AppMediaDevices extends AppElement {
 
   static get properties() {
     return {
-  
-      /**
-        * A string used to filter the devices based on their kind property.
-        *
-        * The string is converted to a RegExp, and then used to match
-        * the `kind` property. So, it is sufficient to use a value like
-        * 'audioinput' or 'videoinput' to select for microphones and cameras
-        * respectively.
-        *
-        **/
-      kind: {
-        type: String, 
-        value: ''
-      },
 
       /**
         * A list of devices whose 'kind' properties match the configured `kind`
@@ -51,6 +37,17 @@ class AppMediaDevices extends AppElement {
         type: Array,
         value: () => ([])
       },
+  
+      /**
+        * A string used to filter the devices based on their kind property.
+        *
+        * The string is converted to a RegExp, and then used to match
+        * the `kind` property. So, it is sufficient to use a value like
+        * 'audioinput' or 'videoinput' to select for microphones and cameras
+        * respectively.
+        *
+        **/
+      kind: String, 
 
       /**
         * A selected device in the list of devices. This starts as the first
@@ -103,15 +100,14 @@ class AppMediaDevices extends AppElement {
 
   async __kindChanged(kind) {
     try {
-      const deviceKindRe = new RegExp(kind ? kind : '', 'i');
 
       const devices = await navigator.mediaDevices.enumerateDevices();
 
       const devicesOfKind = devices.filter(device => 
-        deviceKindRe.test(device.kind));
+        device.kind.includes(kind));
 
       this.selectedIndex = 0;
-      this.devices = devicesOfKind;
+      this.devices       = devicesOfKind;
     } 
     catch (error) {
       console.error(error);

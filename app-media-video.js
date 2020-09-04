@@ -52,15 +52,12 @@ class AppMediaVideo extends AppElement {
 
   static get properties() {
     return {
-  
-      /**
-        * The input source for the element. 
-        * This can be a Media Stream, a Blob or a string URL.
-        *
-        * @type {MediaStream|Blob|string}
-        *
-        **/
-      source: Object,
+
+      /** If true, the video will automatically play when it has a source. **/
+      autoplay: {
+        type: Boolean,
+        value: false
+      },
 
       /**
         * If true, the video will be scaled so that the source video is
@@ -74,7 +71,13 @@ class AppMediaVideo extends AppElement {
         **/
       contain: {
         type: Boolean,
-        value: false,
+        value: false
+      },
+
+      /** If true, the video will loop when it reaches the end of the source. **/
+      loop: {
+        type: Boolean,
+        value: false
       },
 
       /**
@@ -84,39 +87,23 @@ class AppMediaVideo extends AppElement {
         **/
       mirror: {
         type: Boolean,
-        value: false,
+        value: false
       },
 
       /** If true, the video is muted. **/
       muted: {
         type: Boolean,
-        value: false,
+        value: false
       },
-
-      /** If true, the video will automatically play when it has a source. **/
-      autoplay: {
-        type: Boolean,
-        value: false,
-      },
-
-      /** If true, the video will loop when it reaches the end of the source. **/
-      loop: {
-        type: Boolean,
-        value: false,
-      },
-
+  
       /**
-        * A bindable reference to the video element that actually plays the source.
-        * 
-        * This is sometimes useful in conjunction with `app-media-audio`, 
-        * which can accept an HTMLVideoElement as its source.
+        * The input source for the element. 
+        * This can be a Media Stream, a Blob or a string URL.
         *
-        * Read only.
-        *
-        * @type {HTMLVideoElement}
+        * @type {MediaStream|Blob|string}
         *
         **/
-      videoElement: Object,
+      source: Object,
 
       /**
         * A rect-like object that describes the projection of the source
@@ -146,6 +133,19 @@ class AppMediaVideo extends AppElement {
       },
 
       /**
+        * A bindable reference to the video element that actually plays the source.
+        * 
+        * This is sometimes useful in conjunction with `app-media-audio`, 
+        * which can accept an HTMLVideoElement as its source.
+        *
+        * Read only.
+        *
+        * @type {HTMLVideoElement}
+        *
+        **/
+      videoElement: Object,
+
+      /**
         * This is the bounding ClientRect of the app-media-video element.
         *
         * This is kept here for easy future access by users of the element
@@ -156,7 +156,7 @@ class AppMediaVideo extends AppElement {
         * @type {ClientRect}
         *
         **/
-      viewportRect: Object,
+      viewportRect: Object
 
     };
   }
@@ -188,16 +188,6 @@ class AppMediaVideo extends AppElement {
     window.removeEventListener('resize', this.__updateMetrics);
   }
 
-  // Play the video.
-  play() {
-    this.$.videoElement.play();
-  }
-
-  // Pause the video.
-  pause() {
-    this.$.videoElement.pause();
-  }
-
 
   __sourceChanged(source) {
     const oldSrc    = this.$.videoElement.src;
@@ -226,7 +216,7 @@ class AppMediaVideo extends AppElement {
       }
     }
 
-    if (typeof oldSrc === 'string') {
+    if (typeof oldSrc === 'string' || oldSrc instanceof Blob) {
       try {
         window.URL.revokeObjectURL(oldSrc);
       } 
@@ -313,7 +303,17 @@ class AppMediaVideo extends AppElement {
     this.__updateMetrics();
 
     this.fire('app-media-video-metadata-loaded', {value: true});
-  } 
+  }
+
+  // Play the video.
+  play() {
+    this.$.videoElement.play();
+  }
+
+  // Pause the video.
+  pause() {
+    this.$.videoElement.pause();
+  }
 
 }
 

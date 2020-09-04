@@ -28,6 +28,7 @@ const combine = (constraints, device) => {
 	}
 
 	if (device && device.deviceId) {
+		
 		// iOS does not work with 'exact' property for device id,
 		// throws an overconstrained error.
     return {...combined, deviceId: device.deviceId};
@@ -44,6 +45,27 @@ class AppMediaStream extends AppElement {
   static get properties() {
     return {
 
+	    /**
+				* If true, a media stream will be created. If false, the media stream
+				* will be discarded and the stream property will be unset. Discarding
+				* the media stream is akin to turning off access to the camera and/or
+				* microphone, and is useful in some UX conditions (e.g., switching
+				* tabs).
+				*
+				**/
+	    active: {
+	      type: Boolean,
+	      value: false
+	    },
+
+	    /**
+				* The audio constraints to use when creating the media stream.
+				**/
+	    audioConstraints: {
+	      type: Object,
+	      value: null
+	    },
+
     	/**
 				* The audio device to use when creating the media stream.
 				*
@@ -52,35 +74,17 @@ class AppMediaStream extends AppElement {
 				**/
 	    audioDevice: {
 	      type: Object,
-	      value: null,
+	      value: null
 	    },
 
 	    /**
-				* The video device to use when creating the media stream.
+				* A reference to the constraints that are used when requesting the
+				* media stream.
 				*
-				* @type {MediaDeviceInfo}
+				* Read only.
 				*
 				**/
-	    videoDevice: {
-	      type: Object,
-	      value: null,
-	    },
-
-	    /**
-				* The audio constraints to use when creating the media stream.
-				**/
-	    audioConstraints: {
-	      type: Object,
-	      value: null,
-	    },
-
-	    /**
-				* The video constraints to use when creating the media stream.
-				**/
-	    videoConstraints: {
-	      type: Object,
-	      value: null,
-	    },
+	    constraints: Object,
 
 	    /**
 				* A media stream that is created using the configured audio and/or
@@ -94,33 +98,22 @@ class AppMediaStream extends AppElement {
 	    stream: Object,
 
 	    /**
-				* If true, a media stream will be created. If false, the media stream
-				* will be discarded and the stream property will be unset. Discarding
-				* the media stream is akin to turning off access to the camera and/or
-				* microphone, and is useful in some UX conditions (e.g., switching
-				* tabs).
-				*
+				* The video constraints to use when creating the media stream.
 				**/
-	    active: {
-	      type: Boolean,
-	      value: false,
+	    videoConstraints: {
+	      type: Object,
+	      value: null
 	    },
 
 	    /**
-				* A reference to the constraints that are used when requesting the
-				* media stream.
+				* The video device to use when creating the media stream.
 				*
-				* Read only.
+				* @type {MediaDeviceInfo}
 				*
 				**/
-	    constraints: Object,
-
-	    /**
-	    	* Private computed.
-	    	**/
-	    _constraints: {
-	    	type: Object,
-	    	computed: '__computeConstraints(_audioConstraints, _videoConstraints)'
+	    videoDevice: {
+	      type: Object,
+	      value: null
 	    },
 
 	    /**
@@ -129,6 +122,14 @@ class AppMediaStream extends AppElement {
 	    _audioConstraints: {
 	    	type: Object,
 	    	computed: '__computeCombineConstraints(audioConstraints, audioDevice)'
+	    },
+
+	    /**
+	    	* Private computed.
+	    	**/
+	    _constraints: {
+	    	type: Object,
+	    	computed: '__computeConstraints(_audioConstraints, _videoConstraints)'
 	    },
 
 	    /**

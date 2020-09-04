@@ -87,6 +87,159 @@ class AppMediaImageCapture extends AppElement {
 
   static get properties() {
     return {
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    brightness: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /** 
+	    	*	Used in conjunction with `whiteBalanceMode` set to 'manual'.
+	    	*
+	    	*			 Mode        |   Kelvin range
+	    	*
+	    	* incandescent					2500-3500
+				* fluorescent						4000-5000
+				* warm-fluorescent			5000-5500
+				* daylight							5500-6500
+				* cloudy-daylight				6500-8000
+				* twilight							8000-9000
+				* shade									9000-10000
+	    	*
+	    	* @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    colorTemperature: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    contrast: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    exposureCompensation: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /**
+				* @type {Polymer.AppMedia.MeteringMode}
+				*
+				* @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members
+				*
+	     	**/
+	    exposureMode: {
+	      type: String,
+	      value: null
+	    },
+
+	    /**
+	    	* One of 'auto', 'off' or 'on'.
+	    	*
+				* @type {Polymer.AppMedia.FillLightMode}
+				*
+				* @see https://w3c.github.io/mediacapture-image/##photosettings-section
+				*
+				**/
+	    fillLightMode: {
+	      type: String,
+	      value: null
+	    },
+
+	    /**
+	    	* @type {Polymer.AppMedia.MeteringMode}
+	    	*
+	    	* @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members
+	    	*
+	     	**/
+	    focusMode: {
+	      type: String,
+	      value: null // 'none', 'manual', 'single-shot' or 'continuous'.
+	    },
+
+	    /** @see https://w3c.github.io/mediacapture-image/##photosettings-section **/
+	    imageHeight: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /** @see https://w3c.github.io/mediacapture-image/##photosettings-section **/
+	    imageWidth: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    iso: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /**
+				* The PhotoCapabilities for the device providing the 
+				* image data associated with the chosen video track. 
+				* This object contains information about the minimum, 
+				* maximum, current and incremental values for various 
+				* camera settings.
+				*
+				* Read only.
+				*
+				* @see https://w3c.github.io/mediacapture-image/##photocapabilities-section
+				*
+				**/
+	    photoCapabilities: Object,
+
+	    /**
+	    	* The PhotoSettings that will be used to configure the 
+	    	* ImageCapture instance used by this element. 
+	    	* This configuration is generated based on the individually 
+	    	* configured properties on this element.
+	    	*
+	    	* A full list of configurable properties can be found
+	    	* [here](https://w3c.github.io/mediacapture-image/##photosettings-section).
+	    	*
+	    	* Read only.
+	    	*
+	    	* @type {!PhotoSettings}
+	    	*
+	    	**/
+	    photoSettings: Object,
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    pointsOfInterest: {
+	      type: Array,
+	      value: null
+	    },
+
+	    /**
+				* Note that red eye reduction may not be controllable. 
+				* If it is reported as controllable, the value of this 
+				* property will be respected. Otherwise it will be ignored.
+				*
+				* @see https://w3c.github.io/mediacapture-image/##photosettings-section
+				*
+				**/
+	    redEyeReduction: {
+	      type: Boolean,
+	      value: null
+	    },
+
+	    /**
+	       @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members
+	     */
+	    saturation: {
+	      type: Number,
+	      value: null
+	    },
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    sharpness: {
+	      type: Number,
+	      value: null
+	    },
     	
     	/**
 				* The input media stream to capture images from. 
@@ -98,6 +251,47 @@ class AppMediaImageCapture extends AppElement {
 				*
 				**/
 	    stream: Object,
+
+	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    torch: {
+	      type: Boolean,
+	      value: null
+	    },
+
+	    /**
+				* The MediaTrackCapabilities for the device providing the 
+				* image data associated with the chosen video track. 
+				* This object contains information about the minimum, 
+				* maximum, current and incremental values for various 
+				* camera settings.
+				*
+				* @see https://w3c.github.io/mediacapture-image/#mediatrackcapabilities-section
+				*
+				**/
+	    trackCapabilities: {
+	      type: Object,
+	      computed: '__computeTrackCapabilities(_imageCapture, videoTrack)'
+	    },
+
+	    /**
+				* The constraints that will be applied to the MediaStreamTrack 
+				* that is associated with the ImageCapture instance. 
+				* This configuration is generated based on the individually 
+				* configured properties on this element. 
+				*
+				* A full list of configurable constraints can be found
+				* [here](https://w3c.github.io/mediacapture-image/#constrainable-properties)
+				*
+				* Note that if a given setting is not supported by the current track, it
+				* will be ignored. Also, any constraints that are suported will be clamped
+				* to the bounds that are reported by the track PhotoCapabilities instance.
+				*
+				* Read only.
+				*
+				* @type {!MediaTrackConstraints}
+				*
+				**/
+	    trackConstraints: Object,
 
 	    /**
 				* MediaStreams can have multiple video tracks. 
@@ -122,194 +316,27 @@ class AppMediaImageCapture extends AppElement {
 	      computed: '__computeVideoTrack(stream, trackIndex)'
 	    },
 
-	    /**
-				* The PhotoCapabilities for the device providing the 
-				* image data associated with the chosen video track. 
-				* This object contains information about the minimum, 
-				* maximum, current and incremental values for various 
-				* camera settings.
-				*
-				* Read only.
-				*
-				* @see https://w3c.github.io/mediacapture-image/##photocapabilities-section
-				*
-				**/
-	    photoCapabilities: Object,
-
-	    /**
-				* The MediaTrackCapabilities for the device providing the 
-				* image data associated with the chosen video track. 
-				* This object contains information about the minimum, 
-				* maximum, current and incremental values for various 
-				* camera settings.
-				*
-				* @see https://w3c.github.io/mediacapture-image/#mediatrackcapabilities-section
-				*
-				**/
-	    trackCapabilities: {
-	      type: Object,
-	      computed: '__computeTrackCapabilities(imageCapture, videoTrack)'
-	    },
-
-	    /**
-	    	* The PhotoSettings that will be used to configure the 
-	    	* ImageCapture instance used by this element. 
-	    	* This configuration is generated based on the individually 
-	    	* configured properties on this element.
+	    /** 
+	    	*	'auto' or 'manual'. 
 	    	*
-	    	* A full list of configurable properties can be found
-	    	* [here](https://w3c.github.io/mediacapture-image/##photosettings-section).
+	    	* Used in conjunction with `colorTemperature` when set to 'manual'.
 	    	*
-	    	* Read only.
-	    	*
-	    	* @type {!PhotoSettings}
+	    	* @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members 
 	    	*
 	    	**/
-	    photoSettings: Object,
-
-	    /**
-				* @type {Polymer.AppMedia.FillLightMode}
-				*
-				* @see https://w3c.github.io/mediacapture-image/##photosettings-section
-				*
-				**/
-	    fillLightMode: {
-	      type: String,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/##photosettings-section **/
-	    imageHeight: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/##photosettings-section **/
-	    imageWidth: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /**
-				* Note that red eye reduction may not be controllable. 
-				* If it is reported as controllable, the value of this 
-				* property will be respected. Otherwise it will be ignored.
-				*
-				* @see https://w3c.github.io/mediacapture-image/##photosettings-section
-				*
-				**/
-	    redEyeReduction: {
-	      type: Boolean,
-	      value: null
-	    },
-
-	    /**
-				* The constraints that will be applied to the MediaStreamTrack 
-				* that is associated with the ImageCapture instance. 
-				* This configuration is generated based on the individually 
-				* configured properties on this element. 
-				*
-				* A full list of configurable constraints can be found
-				* [here](https://w3c.github.io/mediacapture-image/#constrainable-properties)
-				*
-				* Note that if a given setting is not supported by the current track, it
-				* will be ignored. Also, any constraints that are suported will be clamped
-				* to the bounds that are reported by the track PhotoCapabilities instance.
-				*
-				* Read only.
-				*
-				* @type {!MediaTrackConstraints}
-				*
-				**/
-	    trackConstraints: Object,
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
 	    whiteBalanceMode: {
 	      type: String,
 	      value: null
 	    },
 
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    colorTemperature: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /**
-				* @type {Polymer.AppMedia.MeteringMode}
-				*
-				* @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members
-				*
-	     	**/
-	    exposureMode: {
-	      type: String,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    exposureCompensation: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    iso: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /**
-	    	* @type {Polymer.AppMedia.MeteringMode}
+	    /** 
+	    	*	1 Represents no zoom. 
 	    	*
-	    	* @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members
+	    	*	@see https://w3c.github.io/mediacapture-image/#mediatracksettings-members 
 	    	*
-	     	**/
-	    focusMode: {
-	      type: String,
-	      value: null // 'none', 'manual', 'single-shot' or 'continuous'.
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    pointsOfInterest: {
-	      type: Array,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    brightness: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    contrast: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /**
-	       @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members
-	     */
-	    saturation: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    sharpness: {
-	      type: Number,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
+	    	**/
 	    zoom: {
 	      type: Number,
-	      value: null
-	    },
-
-	    /** @see https://w3c.github.io/mediacapture-image/#mediatracksettings-members **/
-	    torch: {
-	      type: Boolean,
 	      value: null
 	    },
 
@@ -394,7 +421,7 @@ class AppMediaImageCapture extends AppElement {
 
 	    await this.debounce('app-media-image-capture-capabilities-debounce', 10);
 
-	    this.photoCapabilities = await imageCapture.getPhotoCapabilities();      
+	    this.photoCapabilities = await imageCapture.getPhotoCapabilities();
   	}
   	catch (error) {
   		if (error === 'debounced') { return; }

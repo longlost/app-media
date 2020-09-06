@@ -405,7 +405,7 @@ class AppMediaImageCapture extends AppElement {
   }
 
 
-  __trackConstraintsChanged(constraints) {    
+  __trackConstraintsChanged(constraints) { 
     this.fire('app-media-image-capture-track-constraints-changed', {value: constraints});
   }
 
@@ -501,8 +501,13 @@ class AppMediaImageCapture extends AppElement {
       // Don't set photo options if a value is provided, and skip
       // if the name is not present in the PhotoCapabilities object
       // (setting such properties will probably result in an error).
-      if (!value || !capability ||
-          (capabilityIsArray && capability.indexOf(value) === -1)) {
+      if (
+      	value 		 === null 		 || 
+      	value 		 === undefined || 
+      	capability === null 		 ||
+      	capability === undefined ||
+        (capabilityIsArray && capability.indexOf(value) === -1)
+      ) {
         return accum;
       }
 
@@ -514,11 +519,11 @@ class AppMediaImageCapture extends AppElement {
       const getConfigVal = (val, capability) => {
       	if (!capabilityIsArray && capability instanceof Object) {
 
-	        if (capability.min >= val) {
+	        if (typeof capability.min === 'number' && capability.min >= val) {
 	          return capability.min;
 	        }
 
-	        if (capability.max <= val) {
+	        if (typeof capability.max === 'number' && capability.max <= val) {
 	          return capability.max;
 	        }
 	      }

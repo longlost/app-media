@@ -129,7 +129,8 @@ class AppMediaStream extends AppElement {
 	    	**/
 	    _constraints: {
 	    	type: Object,
-	    	computed: '__computeConstraints(_audioConstraints, _videoConstraints)'
+	    	computed: '__computeConstraints(_audioConstraints, _videoConstraints)',
+	    	observer: '__constraintsChanged'
 	    },
 
 	    /**
@@ -146,7 +147,6 @@ class AppMediaStream extends AppElement {
 
   static get observers() {
   	return [
-	    '__constraintsChanged(_constraints)',
 	    '__streamChanged(stream)',
 	    '__updateStream(active, constraints)'
 	  ]
@@ -168,9 +168,17 @@ class AppMediaStream extends AppElement {
     return null;
   }
 
+  // Only update the stream when the constraints actually change in value,
+  // not when the objects only change.
+  __constraintsChanged(newVal, oldVal) {
+  	if (typeof newVal === 'object' && typeof oldVal === 'object') {
 
-  __constraintsChanged(constraints) {
-  	this.constraints = constraints;
+  		if (JSON.stringify(newVal) === JSON.stringify(oldVal)) {
+  			return;
+  		}
+  	}
+
+  	this.constraints = newVal;
   }
 
 

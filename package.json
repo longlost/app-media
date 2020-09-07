@@ -1,6 +1,6 @@
 {
   "name": "@longlost/app-media",
-  "version": "2.0.2",
+  "version": "2.1.0",
   "description": "port of polymer app-media elements, used to interact with media devices",
   "main": "app-media.js",
   "scripts": {
@@ -19,7 +19,6 @@
   "dependencies": {
     "@longlost/app-element": "^2.0.0",
     "@longlost/utils": "^2.0.0",
-    "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/polymer": "^3.4.1",
     "image-capture": "^0.4.0"
   },

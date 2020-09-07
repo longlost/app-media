@@ -198,9 +198,7 @@ class AppMediaStream extends AppElement {
       }
 
   		if (active && constraints) {
-        const stream = await navigator.mediaDevices.getUserMedia(constraints);
-
-	      this.stream = stream;
+        this.stream = await navigator.mediaDevices.getUserMedia(constraints);
 	    } 
 	    else {
 	      this.stream = null;

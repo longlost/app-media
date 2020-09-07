@@ -18,7 +18,6 @@
 
 import {AppElement} from '@longlost/app-element/app-element.js';
 import {schedule} 	from '@longlost/utils/utils.js';
-import 'image-capture/src/imagecapture.js'; // Conditional polyfill meant for Safari.
 
 
 const TRACK_CONSTRAINT_NAMES = [
@@ -305,6 +304,16 @@ class AppMediaImageCapture extends AppElement {
 	    },
 
 	    /**
+				* Set to true when `window.ImageCapture` is nullish.
+				*  
+				* A polyfill is loaded in when this is the case.
+				*
+				* Read Only.
+				*
+				**/
+	    usingPolyfill: Boolean,
+
+	    /**
 				* The video track selected from the input MediaStream. 
 				* This track will be the source for any images captured.
 				*
@@ -366,6 +375,24 @@ class AppMediaImageCapture extends AppElement {
 	    '__updateTrackConstraints(_imageCapture, trackCapabilities, whiteBalanceMode, exposureMode, focusMode, pointsOfInterest, exposureCompensation, colorTemperature, iso, brightness, contrast, saturation, sharpness, zoom, torch)',
   		'__videoTrackChanged(videoTrack)'
 	  ]
+  }
+
+
+  constructor() {
+  	super();
+
+
+  	if (!window.ImageCapture) { 
+
+  		this.usingPolyfill = true;
+  		this.fire('app-media-image-capture-using-polyfill');
+
+    	// Conditional polyfill meant for Safari.
+			import(
+				/* webpackChunkName: 'image-capture-polyfill' */ 
+				'image-capture/src/imagecapture.js'
+			); 
+  	}
   }
 
 
@@ -506,6 +533,7 @@ class AppMediaImageCapture extends AppElement {
       	value 		 === undefined || 
       	capability === null 		 ||
       	capability === undefined ||
+      	capability === 'none' 	 ||
         (capabilityIsArray && capability.indexOf(value) === -1)
       ) {
         return accum;

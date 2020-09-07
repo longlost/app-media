@@ -19,7 +19,6 @@
   "dependencies": {
     "@longlost/app-element": "^2.0.0",
     "@longlost/utils": "^2.0.0",
-    "@polymer/iron-iconset-svg": "^3.0.1",
     "@polymer/polymer": "^3.4.1",
     "image-capture": "^0.4.0"
   },

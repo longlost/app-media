@@ -16,8 +16,8 @@
   *
   **/
 
-import {AppElement} from '@longlost/app-element/app-element.js';
-import {schedule} 	from '@longlost/utils/utils.js';
+import {AppElement} from '@longlost/app-core/app-element.js';
+import {schedule} 	from '@longlost/app-core/utils.js';
 
 
 const TRACK_CONSTRAINT_NAMES = [

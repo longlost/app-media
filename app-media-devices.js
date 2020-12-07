@@ -16,7 +16,7 @@
   *
   **/
 
-import {AppElement} from '@longlost/app-element/app-element.js';
+import {AppElement} from '@longlost/app-core/app-element.js';
 
 
 class AppMediaDevices extends AppElement {

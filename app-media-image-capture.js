@@ -81,6 +81,7 @@ rely on Polymer >=2.x observer semantics.
 
 
 class AppMediaImageCapture extends AppElement {
+
   static get is() { return 'app-media-image-capture'; }
 
 
@@ -379,8 +380,8 @@ class AppMediaImageCapture extends AppElement {
 
 
   constructor() {
-  	super();
 
+  	super();
 
   	if (!window.ImageCapture) { 
 
@@ -397,6 +398,7 @@ class AppMediaImageCapture extends AppElement {
 
 
   __computeVideoTrack(stream, trackIndex) {
+
     if (!stream || typeof trackIndex !== 'number') { return; }
 
     return stream.getVideoTracks()[trackIndex];
@@ -404,6 +406,7 @@ class AppMediaImageCapture extends AppElement {
 
 
   __computeImageCapture(videoTrack) {
+
     if (!videoTrack) { return; }
 
     return new ImageCapture(videoTrack);
@@ -411,6 +414,7 @@ class AppMediaImageCapture extends AppElement {
 
 
   __computeTrackCapabilities(imageCapture, videoTrack) {
+
     if (!imageCapture || !videoTrack) { return; }
 
     return videoTrack.getCapabilities();
@@ -418,31 +422,37 @@ class AppMediaImageCapture extends AppElement {
 
 
   __photoCapabilitiesChanged(capabilities) {
+
 	  this.fire('app-media-image-capture-photo-capabilities-changed', {value: capabilities}); 
   }
 
 
   __photoSettingsChanged(settings) {
+
   	this.fire('app-media-image-capture-photo-settings-changed', {value: settings});
   }
 
 
   __trackCapabilitiesChanged(capabilities) {
+
   	this.fire('app-media-image-capture-track-capabilities-changed', {value: capabilities});
   }
 
 
   __trackConstraintsChanged(constraints) { 
+
     this.fire('app-media-image-capture-track-constraints-changed', {value: constraints});
   }
 
 
   __videoTrackChanged(track) {
+
   	this.fire('app-media-image-capture-video-track-changed', {value: track});
   }
   
 
   async __updatePhotoCapabilities(imageCapture) {
+
   	try {
   		if (!imageCapture) { return; }
 
@@ -518,6 +528,7 @@ class AppMediaImageCapture extends AppElement {
   	*
   	**/
   __generateConfigurationObject(reportedCapabilities, allowedNames) {
+
   	if (!reportedCapabilities) { return {}; }
 
   	const configurationObject = allowedNames.reduce((accum, name) => {
@@ -576,6 +587,7 @@ class AppMediaImageCapture extends AppElement {
   	*
   	**/
   takePhoto() {  
+
     if (!this._imageCapture) {
       throw new Error('ImageCapture instance not ready.');
     }
@@ -594,6 +606,7 @@ class AppMediaImageCapture extends AppElement {
   	*
   	**/
   grabFrame() {    
+  	
     if (!this._imageCapture) {
       throw new Error('ImageCapture instance not ready.');
     }

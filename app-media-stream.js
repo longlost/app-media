@@ -20,6 +20,7 @@ import {AppElement} from '@longlost/app-core/app-element.js';
 
 
 const combine = (constraints, device) => {
+
 	const combined = typeof constraints === 'object' ? {...constraints} : {};
 
 	// Favor faceMode constraints vs deviceId for iOS.
@@ -39,6 +40,7 @@ const combine = (constraints, device) => {
 
 
 class AppMediaStream extends AppElement {
+
   static get is() { return 'app-media-stream'; }
 
 
@@ -154,6 +156,7 @@ class AppMediaStream extends AppElement {
 
 
   __computeCombineConstraints(inputConstraints, inputDevice) {
+
     if (!inputConstraints && !inputDevice) { return false; }
 
     return combine(inputConstraints, inputDevice);
@@ -161,6 +164,7 @@ class AppMediaStream extends AppElement {
 
 
   __computeConstraints(audioConstraints, videoConstraints) {
+
   	if (audioConstraints || videoConstraints) {
   		return {audio: audioConstraints, video: videoConstraints};
     }
@@ -171,6 +175,7 @@ class AppMediaStream extends AppElement {
   // Only update the stream when the constraints actually change in value,
   // not when the objects only change.
   __constraintsChanged(newVal, oldVal) {
+
   	if (typeof newVal === 'object' && typeof oldVal === 'object') {
 
   		if (JSON.stringify(newVal) === JSON.stringify(oldVal)) {
@@ -183,11 +188,13 @@ class AppMediaStream extends AppElement {
 
 
   __streamChanged(stream) {
+
   	this.fire('app-media-stream-changed', {value: stream});
   }
 
 
   async __updateStream(active, constraints) {
+  	
   	try {
   		await this.debounce('app-media-stream-update-stream-debounce', 50);
 

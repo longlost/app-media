@@ -16,12 +16,13 @@
   *
   **/
 
-import {AppElement, html} from '@longlost/app-core/app-element.js';
-import {consumeEvent}     from '@longlost/app-core/utils.js';
-import htmlString         from './app-media-video.html';
+import {AppElement}   from '@longlost/app-core/app-element.js';
+import {consumeEvent} from '@longlost/app-core/utils.js';
+import template       from './app-media-video.html';
 
 
 const getScales = (contain, videoWidth, videoHeight, videoRect, selfRect) => {
+
   const selfRatio     = selfRect.width / selfRect.height;
   const videoRatio    = videoWidth     / videoHeight;
   const scaleByHeight = contain ? 
@@ -43,10 +44,11 @@ const getScales = (contain, videoWidth, videoHeight, videoRect, selfRect) => {
 
 
 class AppMediaVideo extends AppElement {
+
   static get is() { return 'app-media-video'; }
 
   static get template() {
-    return html([htmlString]);
+    return template;
   }
 
 
@@ -171,6 +173,7 @@ class AppMediaVideo extends AppElement {
 
 
   connectedCallback() {
+
     super.connectedCallback();
 
     this.videoElement    = this.$.videoElement;
@@ -183,6 +186,7 @@ class AppMediaVideo extends AppElement {
 
 
   disconnectedCallback() {
+
     super.disconnectedCallback();
 
     window.removeEventListener('resize', this.__updateMetrics);
@@ -190,6 +194,7 @@ class AppMediaVideo extends AppElement {
 
 
   __sourceChanged(source) {
+
     const oldSrc    = this.$.videoElement.src;
     const oldPaused = this.$.videoElement.paused;
 
@@ -298,6 +303,7 @@ class AppMediaVideo extends AppElement {
 
 
   __metadataLoadedHandler(event) {
+
     consumeEvent(event);
 
     this.__updateMetrics();
@@ -307,11 +313,13 @@ class AppMediaVideo extends AppElement {
 
   // Play the video.
   play() {
+
     this.$.videoElement.play();
   }
 
   // Pause the video.
   pause() {
+    
     this.$.videoElement.pause();
   }
 

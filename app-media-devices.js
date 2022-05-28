@@ -20,6 +20,7 @@ import {AppElement} from '@longlost/app-core/app-element.js';
 
 
 class AppMediaDevices extends AppElement {
+
   static get is() { return 'app-media-devices'; }
 
 
@@ -87,11 +88,13 @@ class AppMediaDevices extends AppElement {
 
 
   __devicesChanged(devices) {
+
     this.fire('app-media-devices-changed', {value: devices});
   }
 
 
   __devicesSelectedDeviceIndexChanged(devices, selectedIndex) {
+
     if (devices && typeof selectedIndex === 'number') {
       this.selected = devices[selectedIndex];
     }
@@ -99,6 +102,7 @@ class AppMediaDevices extends AppElement {
 
 
   async __kindChanged(kind) {
+
     try {
 
       const devices = await navigator.mediaDevices.enumerateDevices();
@@ -116,6 +120,7 @@ class AppMediaDevices extends AppElement {
 
 
   __selectedChanged(selected) {
+
     this.fire('app-media-devices-selected-changed', {value: selected});
   }
 
@@ -123,6 +128,7 @@ class AppMediaDevices extends AppElement {
   // If the current device is the last device, 
   // the first device is selected.
   selectNextDevice() {
+
     const nextIndex = this.selectedIndex + 1;
 
     if (this.devices && nextIndex < this.devices.length) {
@@ -137,6 +143,7 @@ class AppMediaDevices extends AppElement {
   // If the current device is the first device, 
   // the last device is selected.
   selectPreviousDevice() {
+
     if (!this.devices || this.devices.length === 0) {
       this.selectedIndex = 0;
 
@@ -155,6 +162,7 @@ class AppMediaDevices extends AppElement {
 
   // Select a specific device from the list of devices.
   selectDevice(device) {
+    
     const index = this.devices.indexOf(device);
 
     if (index === -1) {
